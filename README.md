@@ -13,7 +13,7 @@ Usage and importing
 This package requires `github.com/valyala/fastjson`. Sometimes, this will be installed for you or resolved by go module/import managers.
 
 ```
-go get meow.tf/streamdeck/sdk
+go get github.com/OmegaRogue/streamdeck-sdk-go
 ```
 
 Examples
