@@ -39,8 +39,8 @@ func JsonActionPayload(v *fastjson.Value) actionPayload {
 	}
 }
 
-func JsonKeyPayload(v *fastjson.Value) keyPayload {
-	return keyPayload{
+func JsonKeyPayload(v *fastjson.Value) KeyPayload {
+	return KeyPayload{
 		actionPayload:   JsonActionPayload(v),
 		State:           v.GetInt("state"),
 		IsInMultiAction: v.GetBool("isInMultiAction"),

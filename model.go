@@ -62,18 +62,18 @@ type actionPayload struct {
 	Coordinates Coordinates
 }
 
-type keyPayload struct {
+type KeyPayload struct {
 	actionPayload
 	State           int
 	IsInMultiAction bool
 }
 
-type dialButtonPayload struct {
+type DialButtonPayload struct {
 	actionPayload
 	Controller string
 }
 
-type dialRotatePayload struct {
+type DialRotatePayload struct {
 	actionPayload
 	Controller string
 	// Ticks contains a value representative of the rotation that triggered the event.
@@ -83,13 +83,13 @@ type dialRotatePayload struct {
 	Pressed bool
 }
 
-type appearPayload struct {
-	keyPayload
+type AppearPayload struct {
+	KeyPayload
 	Controller string
 }
 
-type receivedPayload interface {
-	*fastjson.Value | appearPayload | dialRotatePayload | dialButtonPayload | keyPayload | actionPayload
+type ReceivedPayload interface {
+	*fastjson.Value | AppearPayload | DialRotatePayload | DialButtonPayload | KeyPayload | actionPayload
 }
 
 // Events
@@ -97,48 +97,48 @@ type receivedPayload interface {
 type KeyDownEvent struct {
 	Action   string
 	Context  string
-	Payload  keyPayload
+	Payload  KeyPayload
 	DeviceId string
 }
 
 type KeyUpEvent struct {
 	Action   string
 	Context  string
-	Payload  keyPayload
+	Payload  KeyPayload
 	DeviceId string
 }
 
 type DialDownEvent struct {
 	Action   string
 	Context  string
-	Payload  dialButtonPayload
+	Payload  DialButtonPayload
 	DeviceId string
 }
 
 type DialUpEvent struct {
 	Action   string
 	Context  string
-	Payload  dialButtonPayload
+	Payload  DialButtonPayload
 	DeviceId string
 }
 type DialRotateEvent struct {
 	Action   string
 	Context  string
-	Payload  dialRotatePayload
+	Payload  DialRotatePayload
 	DeviceId string
 }
 
 type WillAppearEvent struct {
 	Action   string
 	Context  string
-	Payload  appearPayload
+	Payload  AppearPayload
 	DeviceId string
 }
 
 type WillDisappearEvent struct {
 	Action   string
 	Context  string
-	Payload  appearPayload
+	Payload  AppearPayload
 	DeviceId string
 }
 

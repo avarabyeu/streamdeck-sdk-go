@@ -4,7 +4,7 @@ import (
 	"sync"
 )
 
-type ActionHandler[T receivedPayload] func(action, context string, payload T, deviceId string)
+type ActionHandler[T ReceivedPayload] func(action, context string, payload T, deviceId string)
 type ActionHandlerBase func(action, context string, payload any, deviceId string)
 
 var (

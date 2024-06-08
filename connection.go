@@ -35,21 +35,21 @@ func reader() {
 		switch event {
 		case EventDialDown:
 			handleEvent(EventDialDown, &DialDownEvent{
-				action, context, dialButtonPayload{
+				action, context, DialButtonPayload{
 					actionPayload: JsonActionPayload(payload),
 					Controller:    JsonStringValue(payload, "controller"),
 				}, deviceId,
 			})
 		case EventDialUp:
 			handleEvent(EventDialUp, &DialUpEvent{
-				action, context, dialButtonPayload{
+				action, context, DialButtonPayload{
 					actionPayload: JsonActionPayload(payload),
 					Controller:    JsonStringValue(payload, "controller"),
 				}, deviceId,
 			})
 		case EventDialRotate:
 			handleEvent(EventDialRotate, &DialRotateEvent{
-				action, context, dialRotatePayload{
+				action, context, DialRotatePayload{
 					actionPayload: JsonActionPayload(payload),
 					Controller:    JsonStringValue(payload, "controller"),
 					Ticks:         payload.GetInt("ticks"),
@@ -72,15 +72,15 @@ func reader() {
 			})
 		case EventWillAppear:
 			handleEvent(EventWillAppear, &WillAppearEvent{
-				action, context, appearPayload{
-					keyPayload: JsonKeyPayload(payload),
+				action, context, AppearPayload{
+					KeyPayload: JsonKeyPayload(payload),
 					Controller: JsonStringValue(payload, "controller"),
 				}, deviceId,
 			})
 		case EventWillDisappear:
 			handleEvent(EventWillDisappear, &WillDisappearEvent{
-				action, context, appearPayload{
-					keyPayload: JsonKeyPayload(payload),
+				action, context, AppearPayload{
+					KeyPayload: JsonKeyPayload(payload),
 					Controller: JsonStringValue(payload, "controller"),
 				}, deviceId,
 			})
