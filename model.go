@@ -15,6 +15,17 @@ type sentEvent struct {
 	Payload interface{} `json:"payload"`
 }
 
+// Coordinates on the device
+type Coordinates struct {
+	Row    int `json:"row"`
+	Column int `json:"column"`
+}
+
+type Size struct {
+	Rows    int `json:"rows"`
+	Columns int `json:"columns"`
+}
+
 // Payloads for sent events
 
 type openUrlPayload struct {
@@ -39,39 +50,114 @@ type setImagePayload struct {
 	Target int    `json:"target"`
 }
 
+type switchToProfilePayload struct {
+	Profile string `json:"profile"`
+	Page    int    `json:"page"`
+}
+
+// Payloads for received events
+
+type actionPayload struct {
+	Settings    *fastjson.Value
+	Coordinates Coordinates
+}
+
+type keyPayload struct {
+	actionPayload
+	State           int
+	IsInMultiAction bool
+}
+
+type dialButtonPayload struct {
+	actionPayload
+	Controller string
+}
+
+type dialRotatePayload struct {
+	actionPayload
+	Controller string
+	// Ticks contains a value representative of the rotation that triggered the event.
+	// For a dial, positive value signifies clockwise rotation, and a negative value signifies anticlockwise rotation.
+	// The lowest position is set as 0, and highest position is set as 192.
+	Ticks   int
+	Pressed bool
+}
+
+type appearPayload struct {
+	keyPayload
+	Controller string
+}
+
+type receivedPayload interface {
+	*fastjson.Value | appearPayload | dialRotatePayload | dialButtonPayload | keyPayload | actionPayload
+}
+
 // Events
 
 type KeyDownEvent struct {
 	Action   string
 	Context  string
-	Payload  *fastjson.Value
+	Payload  keyPayload
 	DeviceId string
 }
 
 type KeyUpEvent struct {
 	Action   string
 	Context  string
-	Payload  *fastjson.Value
+	Payload  keyPayload
+	DeviceId string
+}
+
+type DialDownEvent struct {
+	Action   string
+	Context  string
+	Payload  dialButtonPayload
+	DeviceId string
+}
+
+type DialUpEvent struct {
+	Action   string
+	Context  string
+	Payload  dialButtonPayload
+	DeviceId string
+}
+type DialRotateEvent struct {
+	Action   string
+	Context  string
+	Payload  dialRotatePayload
 	DeviceId string
 }
 
 type WillAppearEvent struct {
 	Action   string
 	Context  string
-	Payload  *fastjson.Value
+	Payload  appearPayload
 	DeviceId string
 }
 
 type WillDisappearEvent struct {
 	Action   string
 	Context  string
-	Payload  *fastjson.Value
+	Payload  appearPayload
+	DeviceId string
+}
+
+type PropertyInspectorDidAppearEvent struct {
+	Action   string
+	Context  string
+	DeviceId string
+}
+
+type PropertyInspectorDidDisappearEvent struct {
+	Action   string
+	Context  string
 	DeviceId string
 }
 
 type DeviceConnectEvent struct {
 	DeviceId string
-	Info     *fastjson.Value
+	Name     string
+	Size     Size
 }
 
 type DeviceDisconnectEvent struct {
@@ -89,7 +175,8 @@ type ReceiveSettingsEvent struct {
 	Action   string
 	Context  string
 	DeviceId string
-	Settings *fastjson.Value
+	actionPayload
+	IsInMultiAction bool
 }
 
 type GlobalSettingsEvent struct {

@@ -1,4 +1,4 @@
-module meow.tf/streamdeck/sdk
+module github.com/OmegaRogueck/streamdeck-sdk-go
 
 go 1.19
 

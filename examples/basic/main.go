@@ -1,14 +1,15 @@
 package main
 
 import (
-	"github.com/valyala/fastjson"
 	"log"
+
+	"github.com/valyala/fastjson"
 	"meow.tf/streamdeck/sdk"
 )
 
 func main() {
 	// Initialize handlers for events
-	sdk.RegisterAction("tf.meow.example.doSomething", doSomethingHandler)
+	sdk.RegisterActionDown("tf.meow.example.doSomething", doSomethingHandler)
 
 	// Open and connect the SDK
 	err := sdk.Open()

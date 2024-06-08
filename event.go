@@ -1,11 +1,11 @@
 package sdk
 
 import (
-	"github.com/valyala/fastjson"
 	"sync"
 )
 
-type ActionHandler func(action, context string, payload *fastjson.Value, deviceId string)
+type ActionHandler[T receivedPayload] func(action, context string, payload T, deviceId string)
+type ActionHandlerBase func(action, context string, payload any, deviceId string)
 
 var (
 	handlersMu sync.RWMutex
@@ -116,12 +116,14 @@ func addEventHandlerOnce(eventHandler EventHandler) func() {
 // corresponding to the event for which you want to listen.
 //
 // eg:
-//     AddHandler(func(e *sdk.KeyDownEvent) {
-//     })
+//
+//	AddHandler(func(e *sdk.KeyDownEvent) {
+//	})
 //
 // or:
-//     AddHandler(func(e *sdk.SendToPluginEvent) {
-//     })
+//
+//	AddHandler(func(e *sdk.SendToPluginEvent) {
+//	})
 //
 // The return value of this method is a function, that when called will remove the
 // event handler.
@@ -202,6 +204,8 @@ func handleEvent(t string, i interface{}) {
 func onInterface(i interface{}) {
 	switch t := i.(type) {
 	case *KeyDownEvent:
-		handleAction(t.Action, t.Context, t.Payload, t.DeviceId)
+		handleActionDown(t.Action, t.Context, t.Payload, t.DeviceId)
+	case *KeyUpEvent:
+		handleActionUp(t.Action, t.Context, t.Payload, t.DeviceId)
 	}
 }

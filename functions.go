@@ -76,3 +76,11 @@ func SendToPropertyInspector(context string, object interface{}) {
 		Payload: object,
 	})
 }
+
+func SwitchToProfile(context, profile string, page int) {
+	conn.WriteJSON(&sentEvent{
+		Event:   EventSwitchToProfile,
+		Context: context,
+		Payload: &switchToProfilePayload{Profile: profile, Page: page},
+	})
+}

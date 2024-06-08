@@ -21,6 +21,9 @@ const (
 	EventDidReceiveGlobalSettings      = "didReceiveGlobalSettings"
 	EventPropertyInspectorDidAppear    = "propertyInspectorDidAppear"
 	EventPropertyInspectorDidDisappear = "propertyInspectorDidDisappear"
+	EventDialDown                      = "dialDown"
+	EventDialUp                        = "dialUp"
+	EventDialRotate                    = "dialRotate"
 
 	EventSetTitle                = "setTitle"
 	EventSetImage                = "setImage"

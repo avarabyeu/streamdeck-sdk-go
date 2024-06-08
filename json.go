@@ -18,3 +18,31 @@ func JsonStringValue(v *fastjson.Value, keys ...string) string {
 	return string(strB)
 }
 
+func JsonCoordinates(v *fastjson.Value) Coordinates {
+	return Coordinates{
+		Row:    v.GetInt("coordinates", "row"),
+		Column: v.GetInt("coordinates", "column"),
+	}
+}
+
+func JsonSize(v *fastjson.Value) Size {
+	return Size{
+		Rows:    v.GetInt("size", "rows"),
+		Columns: v.GetInt("size", "columns"),
+	}
+}
+
+func JsonActionPayload(v *fastjson.Value) actionPayload {
+	return actionPayload{
+		Settings:    v.Get("settings"),
+		Coordinates: JsonCoordinates(v),
+	}
+}
+
+func JsonKeyPayload(v *fastjson.Value) keyPayload {
+	return keyPayload{
+		actionPayload:   JsonActionPayload(v),
+		State:           v.GetInt("state"),
+		IsInMultiAction: v.GetBool("isInMultiAction"),
+	}
+}

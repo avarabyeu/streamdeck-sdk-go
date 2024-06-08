@@ -220,6 +220,106 @@ func (eh applicationTerminateEventHandler) Handle(i interface{}) {
 	}
 }
 
+// propertyInspectorDidAppearEventHandler is an event handler for PropertyInspectorDidAppearEvent events.
+type propertyInspectorDidAppearEventHandler func(*PropertyInspectorDidAppearEvent)
+
+// Type returns the event type for PropertyInspectorDidAppearEvent events.
+func (eh propertyInspectorDidAppearEventHandler) Type() string {
+	return EventPropertyInspectorDidAppear
+}
+
+// New returns a new instance of PropertyInspectorDidAppearEvent.
+func (eh propertyInspectorDidAppearEventHandler) New() interface{} {
+	return &PropertyInspectorDidAppearEvent{}
+}
+
+// Handle is the handler for PropertyInspectorDidAppearEvent events.
+func (eh propertyInspectorDidAppearEventHandler) Handle(i interface{}) {
+	if t, ok := i.(*PropertyInspectorDidAppearEvent); ok {
+		eh(t)
+	}
+}
+
+// propertyInspectorDidDisappearEventHandler is an event handler for PropertyInspectorDidDisappearEvent events.
+type propertyInspectorDidDisappearEventHandler func(*PropertyInspectorDidDisappearEvent)
+
+// Type returns the event type for PropertyInspectorDidDisappearEvent events.
+func (eh propertyInspectorDidDisappearEventHandler) Type() string {
+	return EventPropertyInspectorDidDisappear
+}
+
+// New returns a new instance of PropertyInspectorDidDisappearEvent.
+func (eh propertyInspectorDidDisappearEventHandler) New() interface{} {
+	return &PropertyInspectorDidDisappearEvent{}
+}
+
+// Handle is the handler for PropertyInspectorDidDisappearEvent events.
+func (eh propertyInspectorDidDisappearEventHandler) Handle(i interface{}) {
+	if t, ok := i.(*PropertyInspectorDidDisappearEvent); ok {
+		eh(t)
+	}
+}
+
+// dialUpEventHandler is an event handler for DialUpEvent events.
+type dialUpEventHandler func(*DialUpEvent)
+
+// Type returns the event type for DialUpEvent events.
+func (eh dialUpEventHandler) Type() string {
+	return EventDialUp
+}
+
+// New returns a new instance of DialUpEvent.
+func (eh dialUpEventHandler) New() interface{} {
+	return &DialUpEvent{}
+}
+
+// Handle is the handler for DialUpEvent events.
+func (eh dialUpEventHandler) Handle(i interface{}) {
+	if t, ok := i.(*DialUpEvent); ok {
+		eh(t)
+	}
+}
+
+// dialDownEventHandler is an event handler for DialDownEvent events.
+type dialDownEventHandler func(*DialDownEvent)
+
+// Type returns the event type for DialDownEvent events.
+func (eh dialDownEventHandler) Type() string {
+	return EventDialDown
+}
+
+// New returns a new instance of DialDownEvent.
+func (eh dialDownEventHandler) New() interface{} {
+	return &DialDownEvent{}
+}
+
+// Handle is the handler for DialDownEvent events.
+func (eh dialDownEventHandler) Handle(i interface{}) {
+	if t, ok := i.(*DialDownEvent); ok {
+		eh(t)
+	}
+}
+
+// dialRotateEventHandler is an event handler for DialRotateEvent events.
+type dialRotateEventHandler func(*DialRotateEvent)
+
+// Type returns the event type for DialRotateEvent events.
+func (eh dialRotateEventHandler) Type() string {
+	return EventDialRotate
+}
+
+// New returns a new instance of DialRotateEvent.
+func (eh dialRotateEventHandler) New() interface{} {
+	return &DialRotateEvent{}
+}
+
+// Handle is the handler for DialRotateEvent events.
+func (eh dialRotateEventHandler) Handle(i interface{}) {
+	if t, ok := i.(*DialRotateEvent); ok {
+		eh(t)
+	}
+}
+
 func handlerForInterface(handler interface{}) EventHandler {
 	switch v := handler.(type) {
 	case func(interface{}):
@@ -246,6 +346,16 @@ func handlerForInterface(handler interface{}) EventHandler {
 		return applicationLaunchEventHandler(v)
 	case func(*ApplicationTerminateEvent):
 		return applicationTerminateEventHandler(v)
+	case func(*PropertyInspectorDidAppearEvent):
+		return propertyInspectorDidAppearEventHandler(v)
+	case func(*PropertyInspectorDidDisappearEvent):
+		return propertyInspectorDidDisappearEventHandler(v)
+	case func(*DialUpEvent):
+		return dialUpEventHandler(v)
+	case func(*DialDownEvent):
+		return dialDownEventHandler(v)
+	case func(*DialRotateEvent):
+		return dialRotateEventHandler(v)
 	}
 
 	return nil
