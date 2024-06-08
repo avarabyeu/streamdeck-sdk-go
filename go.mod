@@ -1,4 +1,4 @@
-module github.com/OmegaRogueck/streamdeck-sdk-go
+module github.com/OmegaRogue/streamdeck-sdk-go
 
 go 1.19
 
