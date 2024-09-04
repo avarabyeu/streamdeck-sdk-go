@@ -51,7 +51,14 @@ func SetImage(context, imageData string, target int) {
 	conn.WriteJSON(&sentEvent{
 		Event:   EventSetImage,
 		Context: context,
-		Payload: &setImagePayload{imageData, target},
+		Payload: &setImagePayload{Image: imageData, Target: target},
+	})
+}
+func SetImageState(context, imageData string, state, target int) {
+	conn.WriteJSON(&sentEvent{
+		Event:   EventSetImage,
+		Context: context,
+		Payload: &setImagePayload{Image: imageData, Target: target, State: state},
 	})
 }
 
